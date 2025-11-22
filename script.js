@@ -141,10 +141,12 @@ const initMobileMenu = () => {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     const links = document.querySelectorAll('.nav-links li');
+    const anchors = document.querySelectorAll('.nav-links a');
 
-    hamburger.addEventListener('click', () => {
+    const toggleMenu = () => {
         // Toggle Nav
         navLinks.classList.toggle('nav-active');
+        document.body.classList.toggle('nav-open', navLinks.classList.contains('nav-active'));
         
         // Animate Links
         links.forEach((link, index) => {
@@ -157,6 +159,17 @@ const initMobileMenu = () => {
 
         // Hamburger Animation
         hamburger.classList.toggle('toggle');
+    };
+
+    hamburger.addEventListener('click', toggleMenu);
+
+    // Close menu on link click (navigate to section)
+    anchors.forEach(a => {
+        a.addEventListener('click', () => {
+            if (navLinks.classList.contains('nav-active')) {
+                toggleMenu();
+            }
+        });
     });
 };
 
